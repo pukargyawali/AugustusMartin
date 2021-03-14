@@ -23,16 +23,16 @@ Follow these steps to get your development environment set up: (Before Run Start
 
 ##### To turn on redis:
     - change IsCacheActivated option to true in appSettings.json file
-  docker-compose -f docker-compose.yml up -d
+    - docker-compose -f docker-compose.yml up -d
 
 #### Install web app
   - navigate to AugustusMartinWebApp directory
-  run:
-    dotnet build
-    dotnet run
+  run following command:
+    - dotnet build
+    - dotnet run
 
-####You can launch the app with below url:
+#### You can launch the app with below url:
   https://localhost:5001
 
-####You can launch the swagger UI with below url:
+#### You can launch the swagger UI with below url:
   https://localhost:5001/swagger
