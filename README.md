@@ -9,23 +9,30 @@ Follow these steps to get your development environment set up: (Before Run Start
 
   .Net Core 3.1 SDK or later
 
-  Docker Desktop
+  Docker Desktop(optional)
 
   Clone the repository
 
+  Redis(optional)
+
   At the src directory, where folders for the projects are present run below command:
 
-#### Docker File
+#### Install Redis using Docker File
+  - Redis cache is optional in this web application.
+  - Redis is turned off by default.
+
+##### To turn on redis:
+    - change IsCacheActivated option to true in appSettings.json file
   docker-compose -f docker-compose.yml up -d
 
+#### Install web app
+  - navigate to AugustusMartinWebApp directory
+  run:
+    dotnet build
+    dotnet run
+
 ####You can launch the app with below url:
+  https://localhost:5001
 
+####You can launch the swagger UI with below url:
   https://localhost:5001/swagger
-
-### Turn on cache
-  There is a configuration for turning the caching mechanism on or off based on the requirement.
-  This setting lives in appsettings.json file
-
-### Improvements:
- While building production version, Logging should be used for different log levels in application- ERROR, DEBUG, INFO
- Endpoint health must also be tracked with various tools like X-RAY/AppDynamics.
