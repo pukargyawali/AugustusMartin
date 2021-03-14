@@ -1,0 +1,44 @@
+<div class ="user-list-container" *ngIf="users.length > 0; else elseBlock">
+    <div class="container">
+        <div class="row center-flex">
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <mat-card class="user-card">
+                    <mat-card-content>
+                        <mat-list>
+                            <h3 mat-subheader>Users</h3>
+                            <div *ngFor="let user of users; last as last">
+                                <div class="container">
+                                    <div class="row user-list">
+                                        <mat-list-item class="user-item">
+                                            <div class="col-md-auto user-avatar">
+                                                <img mat-card-avatar class="user-header-image"
+                                                    src="{{'https://picsum.photos/id/'+user.userId+'/200/300'}}" />
+                                            </div>
+                                            <div class="col-sm-7 user-name">
+                                                <p mat-line>{{user.fullName}} <span
+                                                        class="badge badge-dark">{{user.postCount}} posts</span></p>
+                                            </div>
+                                            <div class="col-sm-3 view-profile-btn">
+                                                <button type="button" id="{{user.userId}}" class="btn btn-outline-primary"
+                                                    (click)='userPost(user.userId)'>View posts</button>
+                                            </div>
+                                        </mat-list-item>
+                                        <mat-divider inset=“true” class="user-divider" *ngIf="!last"></mat-divider>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-list>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #elseBlock>
+    <div class="d-flex justify-content-center page-loading">
+        <div class="spinner-grow" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-template>

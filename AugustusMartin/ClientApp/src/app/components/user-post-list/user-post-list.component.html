@@ -1,0 +1,65 @@
+<div *ngIf="(user$ | async )?.userName; else elseBlock">
+  <div class="container">
+    <div class="row center-flex">
+      <div class="col-xs-12 col-sm-4 col-md-3">
+        <mat-card class="user-card">
+          <mat-card-content>
+            <mat-list>
+              <mat-card-header>
+                <div class="center-flex">
+                  <img mat-card-avatar class="user-profile-img"
+                    src="{{'https://picsum.photos/id/'+(user$ | async)?.userId+'/200/300'}}" />
+                  <h6 mat-subheader>{{(user$ | async)?.fullName}}</h6>
+                </div>
+              </mat-card-header>
+              <mat-divider [inset]="true" class="user-divider"></mat-divider>
+              <mat-list-item>
+                <p mat-line class="mat-line-user">UserName: {{(user$ | async)?.userName}}</p>
+                <p mat-line class="mat-line-user">Email: {{(user$ | async)?.email}}</p>
+                <p mat-line class="mat-line-user">Website: {{(user$ | async)?.webSite}}</p>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="col-xs-12 col-sm-8 col-md-9">
+        <div class="post-card" *ngFor="let post of posts$ | async">
+          <mat-card class="user-card">
+            <mat-card-header>
+              <img mat-card-avatar class="user-header-image"
+                src="{{'https://picsum.photos/id/'+(user$ | async)?.userId+'/200/300'}}" />
+              <h6 mat-subheader>{{(user$ | async)?.fullName}}</h6>
+            </mat-card-header>
+            <br>
+            <mat-card-content>
+              <h6> {{post.title}}</h6>
+              <p>
+                {{post.body}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <span>
+                <mat-icon>thumb_up</mat-icon>
+              </span>
+              <span>
+                <mat-icon>favorite_border</mat-icon>
+              </span>
+              <span>
+                <mat-icon>share</mat-icon>
+              </span>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  <div class="d-flex justify-content-center page-loading">
+    <div class="spinner-grow" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-template>

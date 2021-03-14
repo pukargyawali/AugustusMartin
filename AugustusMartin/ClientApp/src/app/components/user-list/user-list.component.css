@@ -1,0 +1,12 @@
+.user-card {
+    max-width: 800px;
+    margin: 0px;
+    background-color:white;
+    align-self: center;
+  }  
+.user-header-image {    
+    background-size: cover;
+  }
+.user-list{
+  margin-left: 25px;
+}

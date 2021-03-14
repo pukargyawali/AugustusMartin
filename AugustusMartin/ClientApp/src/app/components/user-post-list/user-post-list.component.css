@@ -1,0 +1,34 @@
+.example-container {
+    width: 400px;
+    height: 200px;
+    margin: 10px;
+    border: 1px solid #555;
+  }
+  mat-grid-tile {
+    background: lightblue;
+ }
+.post-card{
+  margin-bottom: 25px;
+}
+span + span {
+  margin-left: 10px;
+}
+mat-card-title{
+  margin-top: 15px;
+}
+mat-list-item{
+  font-size:small;
+}
+.mat-card-avatar{
+  height: 60px;
+  width: 60px;
+}
+mat-card-content{
+  margin: 15px;
+}
+.user-profile-img{
+  margin-left: 25px;
+}
+mat-card-actions{
+  margin-left: 15px;
+}
