@@ -32,7 +32,7 @@ Follow these steps to get your development environment set up: (Before Run Start
     - dotnet run
 
 #### You can launch the app with below url:
-  https://localhost:5001
+  - https://localhost:5001
 
 #### You can launch the swagger UI with below url:
-  https://localhost:5001/swagger
+  - https://localhost:5001/swagger
