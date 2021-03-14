@@ -1,20 +1,9 @@
-version: '3.7'
-
+version: '3'
 services:
-  web:
-    image: redistest:latest
-    depends_on:
-      - "redis_image"
-    build:
-      context: .
-      dockerfile: PostCodes.API/Dockerfile
-    ports:
-      - "5001:80"
-    links:
-      - "redis_image"
-
-  redis_image:
-    image: redis
-    container_name : cache
-    ports:
-        - 6379:6379
+    redis:
+        image: redis:latest
+        ports:
+            - 6379:6379
+        volumes:
+            - ./config/redis.conf:/redis.conf
+        command: [ "redis-server", "/redis.conf" ]
