@@ -6,6 +6,7 @@ using AugustusIntegrations.Cache;
 using AugustusIntegrations.ExternalAPI;
 using AugustusIntegrations.ExternalAPI.Dto;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace AugustusWebApp.Facade
 {
@@ -15,6 +16,7 @@ namespace AugustusWebApp.Facade
         private readonly ICacheStorage _redisCacheStorage;
         private readonly IConfiguration _configuration;
         private readonly IPostFacade _postFacade;
+        private readonly ILogger<UserFacade> _logger;
 
         private bool _isCacheActivated => _configuration.GetValue<bool>("IsCacheActivated");
         private IList<UserDTO> _users;
@@ -36,6 +38,7 @@ namespace AugustusWebApp.Facade
                     if (result == null)
                     {
                         //get data from API
+                        _logger.Log(LogLevel.Information, "no data found in cache, getting data from api");
 
                         _users = (await _jsonPlaceholderRestClient.GetDataAsync<IList<UserDTO>>(uri));
                         await PopulatePostCountAsync();
@@ -54,7 +57,8 @@ namespace AugustusWebApp.Facade
             }
             catch (Exception ex)
             {
-                //Use logger to log the exception                
+                //Use logger to log the exception
+                _logger.Log(LogLevel.Error, "Error occured while processing your request (" + ex.Message + ")", ex);
                 throw new Exception("Error occured while processing your request (" + ex.Message + ")", ex);
             }
            
@@ -84,7 +88,8 @@ namespace AugustusWebApp.Facade
             }
             catch (Exception ex)
             {
-                //Use logger to log the exception                
+                //Use logger to log the exception
+                _logger.Log(LogLevel.Error, "Error occured while processing your request (" + ex.Message + ")", ex);
                 throw new Exception("Error occured while processing your request (" + ex.Message + ")", ex);
             }
         }

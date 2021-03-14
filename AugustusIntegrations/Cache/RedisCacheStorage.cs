@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
@@ -9,11 +10,13 @@ namespace AugustusIntegrations.Cache
     {
         private readonly ConnectionMultiplexer _redisConnection;
         private IDatabase _redis;
+        private ILogger<RedisCacheStorage> _logger;
 
-        public RedisCacheStorage(ConnectionMultiplexer redisConnection)
+        public RedisCacheStorage(ConnectionMultiplexer redisConnection, ILogger<RedisCacheStorage> logger)
         {
             _redisConnection = redisConnection;
             _redis = redisConnection.GetDatabase(0);
+            _logger = logger;
         }
 
         public async Task<T> AddValueAsync<T>(string key, T value)
@@ -30,7 +33,8 @@ namespace AugustusIntegrations.Cache
             }
             catch (RedisException rEx)
             {
-                throw new Exception(" Error occured while adding data to redis(" + rEx.Message + ")", rEx);
+                _logger.Log(LogLevel.Error, "Error occured while adding data to redis(" + rEx.Message + ")", rEx);
+                throw new Exception("Error occured while adding data to redis(" + rEx.Message + ")", rEx);
             }
 
         }
@@ -48,6 +52,7 @@ namespace AugustusIntegrations.Cache
             }
             catch (RedisException rEx)
             {
+                _logger.Log(LogLevel.Error, "Error occured while accessing data to redis(" + rEx.Message + ")", rEx);
                 throw new Exception(" Error occured while accesing data from redis(" + rEx.Message + ")", rEx);
             }
         }
@@ -60,6 +65,7 @@ namespace AugustusIntegrations.Cache
             }
             catch (RedisException rEx)
             {
+                _logger.Log(LogLevel.Error, "Error occured while deleting data to redis(" + rEx.Message + ")", rEx);
                 throw new Exception(" Error occured while deleting data from redis(" + rEx.Message + ")", rEx);
             }
 

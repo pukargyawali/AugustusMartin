@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
+
 namespace AugustusIntegrations.ExternalAPI
 {
     public class JSONPlaceHolderRestClient : IRestClient
     {
-        private readonly HttpClient _client;
+        private readonly HttpClient _client;        
 
         public JSONPlaceHolderRestClient(string baseUri)
         {
-            _client = new HttpClient { BaseAddress = new Uri(baseUri) };
+            _client = new HttpClient { BaseAddress = new Uri(baseUri) };           
         }
 
         public async Task<T> GetDataAsync<T>(string uri)
@@ -28,13 +28,12 @@ namespace AugustusIntegrations.ExternalAPI
                 }
                 var data = JsonConvert.DeserializeObject<T>(
                    await response.Content.ReadAsStringAsync());
-
+               
                 return data;
             }
             catch (Exception ex)
             {
-                //Use logger to log the exception                
-                throw new Exception("Error occured while calling external API(" + ex.Message + ")", ex);
+              throw new Exception("Error occured while calling external API(" + ex.Message + ")", ex);
             }          
            
         }

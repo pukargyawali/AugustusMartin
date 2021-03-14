@@ -47,8 +47,7 @@
                 services.AddScoped<ICacheStorage, RedisCacheStorage>();
                 services.AddScoped<IUserFacade, UserFacade>();
                 services.AddScoped<IPostFacade, PostFacade>();            
-                services.AddScoped<IRestClient>(restClient =>
-                                                        new JSONPlaceHolderRestClient(Configuration.GetValue<string>("JsonPlaceHolderBaseAddress")));
+                services.AddScoped<IRestClient>(restClient => new JSONPlaceHolderRestClient(Configuration.GetValue<string>("JsonPlaceHolderBaseAddress")));
                 #endregion
 
                 #region Swagger Dependencies
